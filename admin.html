@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickStay - Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-home"></i> QuickStay
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="admin.html" class="active">Admin Panel</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div id="user-profile">
+                    <span id="username-display">Admin</span>
+                    <button id="logout-btn" class="btn-small">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel Section -->
+    <section class="admin-section">
+        <div class="container">
+            <h1>Admin Panel</h1>
+            
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="rooms">Manage Rooms</button>
+                <button class="tab-btn" data-tab="bookings">Manage Bookings</button>
+                <button class="tab-btn" data-tab="users">Manage Users</button>
+            </div>
+            
+            <div class="admin-content">
+                <!-- Rooms Tab -->
+                <div class="tab-content active" id="rooms-tab">
+                    <div class="admin-header">
+                        <h2>Manage Rooms</h2>
+                        <button id="add-room-btn" class="btn btn-primary">Add New Room</button>
+                    </div>
+                    
+                    <div class="room-filters">
+                        <select id="room-type-filter">
+                            <option value="all">All Room Types</option>
+                            <option value="standard">Standard Room</option>
+                            <option value="deluxe">Deluxe Room</option>
+                            <option value="suite">Suite</option>
+                            <option value="presidential">Presidential Suite</option>
+                            <option value="family">Family Room</option>
+                            <option value="business">Business Room</option>
+                        </select>
+                        <select id="room-availability-filter">
+                            <option value="all">All Availability</option>
+                            <option value="available">Available</option>
+                            <option value="unavailable">Unavailable</option>
+                        </select>
+                    </div>
+                    
+                    <div class="rooms-container" id="admin-rooms-list">
+                        <!-- Rooms will be loaded here dynamically -->
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading rooms...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bookings Tab -->
+                <div class="tab-content" id="bookings-tab">
+                    <h2>Manage Bookings</h2>
+                    
+                    <div class="booking-filters">
+                        <select id="admin-booking-status-filter">
+                            <option value="all">All Bookings</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <input type="date" id="booking-date-filter" placeholder="Filter by date">
+                    </div>
+                    
+                    <div class="bookings-container" id="admin-bookings-list">
+                        <!-- Bookings will be loaded here dynamically -->
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading bookings...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Users Tab -->
+                <div class="tab-content" id="users-tab">
+                    <h2>Manage Users</h2>
+                    
+                    <div class="user-search">
+                        <input type="text" id="user-search-input" placeholder="Search by name or email">
+                        <button id="user-search-btn" class="btn">Search</button>
+                    </div>
+                    
+                    <div class="users-container" id="admin-users-list">
+                        <!-- Users will be loaded here dynamically -->
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading users...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Add/Edit Room Modal -->
+    <div class="modal" id="room-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="room-modal-title">Add New Room</h2>
+            <form id="room-form">
+                <input type="hidden" id="room-id">
+                <div class="form-group">
+                    <label for="room-name">Room Name</label>
+                    <input type="text" id="room-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-type">Room Type</label>
+                    <select id="room-type" required>
+                        <option value="standard">Standard Room</option>
+                        <option value="deluxe">Deluxe Room</option>
+                        <option value="suite">Suite</option>
+                        <option value="presidential">Presidential Suite</option>
+                        <option value="family">Family Room</option>
+                        <option value="business">Business Room</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="room-price">Price per Night ($)</label>
+                    <input type="number" id="room-price" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-capacity">Capacity (Guests)</label>
+                    <input type="number" id="room-capacity" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-description">Description</label>
+                    <textarea id="room-description" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="room-amenities">Amenities (comma separated)</label>
+                    <input type="text" id="room-amenities" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-image">Image URL</label>
+                    <input type="url" id="room-image" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-availability">Availability</label>
+                    <select id="room-availability" required>
+                        <option value="true">Available</option>
+                        <option value="false">Unavailable</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Room</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Booking Details Modal -->
+    <div class="modal" id="admin-booking-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Booking Details</h2>
+            <div id="admin-booking-details">
+                <!-- Booking details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <select id="booking-status-update">
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="completed">Completed</option>
+                </select>
+                <button id="update-booking-status-btn" class="btn btn-primary">Update Status</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- User Details Modal -->
+    <div class="modal" id="user-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>User Details</h2>
+            <div id="user-details">
+                <!-- User details will be loaded here -->
+            </div>
+            <div class="user-bookings">
+                <h3>User's Bookings</h3>
+                <div id="user-bookings-list">
+                    <!-- User's bookings will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-home"></i> QuickStay</h3>
+                    <p>Find your perfect getaway destination</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#rooms">Rooms</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Beach Road, Miami, FL</p>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> info@quickstay.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 QuickStay. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="admin.js"></script>
+</body>
+</html>

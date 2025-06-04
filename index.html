@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickStay - Discover Your Perfect Getaway Destination</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="#">
+                    <i class="fas fa-home"></i> QuickStay
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#about-us">About Us</a></li>
+                    
+                    <li><a href="#room-gallery">Gallery</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#" id="dashboard-link" style="display: none;">My Dashboard</a></li>
+                    <li><a href="#" id="admin-link" style="display: none;">Admin Panel</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button id="auth-btn" class="auth-btn"><i class="fas fa-user"></i> Login / Signup</button>
+                <div id="user-profile" style="display: none;">
+                    <span id="username-display">User</span>
+                    <button id="logout-btn" class="btn-small">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Discover Your Perfect Getaway Destination</h1>
+            <p>Find and book the best hotels at the most affordable prices for your next trip</p>
+            
+            <!-- Search Form -->
+            <div class="search-form">
+                <div class="search-input">
+                    <label for="room_type">Select Type Of Room</label>
+                    <select id="room_type">
+                        <option value="">Choose room type</option>
+                        <option value="standard">Standard Room</option>
+                        <option value="deluxe">Deluxe Room</option>
+                        <option value="suite">Suite</option>
+                        <option value="presidential">Presidential Suite</option>
+                        <option value="family">Family Room</option>
+                        <option value="business">Business Room</option>
+                    </select>
+                </div>
+                <div class="search-input">
+                    <label for="check-in">Check in</label>
+                    <input type="date" id="check-in">
+                </div>
+                <div class="search-input">
+                    <label for="check-out">Check out</label>
+                    <input type="date" id="check-out">
+                </div>
+                <div class="search-input">
+                    <label for="guests">Guests</label>
+                    <select id="guests">
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="5">5+ Guests</option>
+                    </select>
+                </div>
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <a href="#featured-rooms">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us" id="about-us">
+        <div class="container">
+            <h2>About QuickStay</h2>
+            <p>Your trusted partner for finding the perfect accommodation for every journey</p>
+            
+            <div class="about-us-content">
+                <div class="about-us-image">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60" alt="About QuickStay">
+                </div>
+                <div class="about-us-text">
+                    <h3>We Help You Find Your Dream Stay</h3>
+                    <p>Founded in 2020, QuickStay has quickly become the leading hotel booking platform, connecting travelers with the best accommodations worldwide. Our mission is to make travel planning simple, enjoyable, and affordable for everyone.</p>
+                    <p>With thousands of carefully selected hotels and resorts in our database, we offer options for every budget and preference. Our team of travel experts personally vets each property to ensure it meets our high standards of quality, comfort, and value.</p>
+                    <p>Whether you're planning a business trip, family vacation, romantic getaway, or solo adventure, QuickStay is your trusted partner in finding the perfect place to stay.</p>
+                </div>
+            </div>
+            
+            <div class="why-choose-us">
+                <h3>Why Choose Us</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h4>Best Price Guarantee</h4>
+                        <p>We offer the most competitive rates in the market. If you find a lower price elsewhere, we'll match it and give you an additional 10% discount.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Secure Booking</h4>
+                        <p>Your personal and payment information is always protected with our advanced encryption technology and secure payment gateways.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>24/7 Customer Support</h4>
+                        <p>Our dedicated support team is available around the clock to assist you with any questions or issues before, during, or after your stay.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Room Gallery Section -->
+    <section class="exclusive-offers" id="room-gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Room Gallery</h2>
+                <p>Explore our beautiful rooms and find the perfect space for your stay</p>
+            </div>
+            
+            <div class="room-filter">
+                <button class="filter-btn active" data-filter="all">All Rooms</button>
+                <button class="filter-btn" data-filter="standard">Standard</button>
+                <button class="filter-btn" data-filter="deluxe">Deluxe</button>
+                <button class="filter-btn" data-filter="suite">Suite</button>
+                <button class="filter-btn" data-filter="presidential">Presidential</button>
+                <button class="filter-btn" data-filter="family">Family</button>
+                <button class="filter-btn" data-filter="business">Business</button>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Gallery items will be dynamically loaded here -->
+                
+                <!-- Sample Gallery Items (will be replaced by dynamic content) -->
+                <div class="gallery-item" data-category="standard">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Standard Room">
+                    <div class="gallery-overlay">
+                        <h3>Standard Room</h3>
+                        <p>Comfortable and affordable</p>
+                        <a href="room-details.html?type=standard" class="view-room-btn">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="deluxe">
+                    <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bHV4dXJ5JTIwaG90ZWwlMjBsb2JieXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Deluxe Room">
+                    <div class="gallery-overlay">
+                        <h3>Deluxe Room</h3>
+                        <p>Spacious with premium amenities</p>
+                        <a href="room-details.html?type=deluxe" class="view-room-btn">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="suite">
+                    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWwlMjByb29tfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Suite">
+                    <div class="gallery-overlay">
+                        <h3>Suite</h3>
+                        <p>Luxury living with separate areas</p>
+                        <a href="room-details.html?type=suite" class="view-room-btn">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="presidential">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Presidential Suite">
+                    <div class="gallery-overlay">
+                        <h3>Presidential Suite</h3>
+                        <p>The ultimate luxury experience</p>
+                        <a href="room-details.html?type=presidential" class="view-room-btn">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="family">
+                    <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cmVzb3J0JTIwYmVhY2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Family Room">
+                    <div class="gallery-overlay">
+                        <h3>Family Room</h3>
+                        <p>Perfect for family vacations</p>
+                        <a href="room-details.html?type=family" class="view-room-btn">View Details</a>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="business">
+                    <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhvdGVsJTIwcG9vbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Business Room">
+                    <div class="gallery-overlay">
+                        <h3>Business Room</h3>
+                        <p>Equipped for work and relaxation</p>
+                        <a href="room-details.html?type=business" class="view-room-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Guests Say</h2>
+            <p>Discover why hotels booked through QuickStay have the highest guest satisfaction ratings in the industry</p>
+            
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="guest-info">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Guest Photo">
+                        <div>
+                            <h4>Jessica Rodriguez</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"We had an amazing experience staying at The Grand Resort. The staff was incredibly helpful, and the amenities exceeded our expectations. Will definitely book through QuickStay again!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="guest-info">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Guest Photo">
+                        <div>
+                            <h4>James Anderson</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The booking process was so simple and fast. I found exactly what I was looking for at a great price. The hotel was perfect for my business trip. QuickStay made everything hassle-free."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="guest-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Guest Photo">
+                        <div>
+                            <h4>Emma Peterson</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"QuickStay found us the perfect holiday hotel. The descriptions were accurate, the photos were true to life, and the customer service was outstanding when we needed to modify our booking."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Inspired</h2>
+            <p>Receive updates with the best of our new destinations, exclusive offers and travel inspiration</p>
+            
+            <div class="newsletter-form">
+                <input type="email" placeholder="Enter your email">
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+            
+            <p class="newsletter-disclaimer">By subscribing, you agree to receive marketing communications from QuickStay</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-home"></i> QuickStay
+                    </div>
+                    <p>We help you find and book the perfect hotel for your next trip, with the best prices and exclusive deals.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>COMPANY</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#">Magazine</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>SUPPORT</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>NEWSLETTER</h3>
+                    <p>Subscribe to our newsletter for updates on new destinations</p>
+                    <div class="footer-form">
+                        <input type="email" placeholder="Your email">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 QuickStay. All Rights Reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

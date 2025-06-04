@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickStay - User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-home"></i> QuickStay
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#rooms">Rooms</a></li>
+                    <li><a href="dashboard.html" class="active">My Dashboard</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div id="user-profile">
+                    <span id="username-display">User</span>
+                    <button id="logout-btn" class="btn-small">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            <h1>My Dashboard</h1>
+            
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="bookings">My Bookings</button>
+                <button class="tab-btn" data-tab="profile">Profile</button>
+            </div>
+            
+            <div class="dashboard-content">
+                <!-- Bookings Tab -->
+                <div class="tab-content active" id="bookings-tab">
+                    <h2>My Bookings</h2>
+                    
+                    <div class="booking-filters">
+                        <select id="booking-status-filter">
+                            <option value="all">All Bookings</option>
+                            <option value="upcoming">Upcoming</option>
+                            <option value="past">Past</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    
+                    <div class="bookings-container" id="bookings-list">
+                        <!-- Bookings will be loaded here dynamically -->
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading your bookings...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Tab -->
+                <div class="tab-content" id="profile-tab">
+                    <h2>My Profile</h2>
+                    
+                    <form id="profile-form">
+                        <div class="form-group">
+                            <label for="profile-name">Full Name</label>
+                            <input type="text" id="profile-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-email">Email</label>
+                            <input type="email" id="profile-email" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-phone">Phone</label>
+                            <input type="tel" id="profile-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-address">Address</label>
+                            <textarea id="profile-address" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
+                    
+                    <div class="change-password-section">
+                        <h3>Change Password</h3>
+                        <form id="change-password-form">
+                            <div class="form-group">
+                                <label for="current-password">Current Password</label>
+                                <input type="password" id="current-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password">New Password</label>
+                                <input type="password" id="new-password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-new-password">Confirm New Password</label>
+                                <input type="password" id="confirm-new-password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Booking Details Modal -->
+    <div class="modal" id="booking-details-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Booking Details</h2>
+            <div id="booking-details-content">
+                <!-- Booking details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-booking-btn" class="btn btn-danger">Cancel Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-home"></i> QuickStay</h3>
+                    <p>Find your perfect getaway destination</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#rooms">Rooms</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Beach Road, Miami, FL</p>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> info@quickstay.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 QuickStay. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

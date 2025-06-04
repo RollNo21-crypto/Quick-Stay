@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Details - Quick Stay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Room Details Page Specific Styles */
+        .room-details-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .room-gallery {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 80px;
+            flex-shrink: 0;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail:hover {
+            opacity: 1;
+        }
+
+        .thumbnail.active {
+            opacity: 1;
+            border-color: #3a86ff;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .image-navigation {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .image-navigation:hover {
+            background-color: white;
+        }
+
+        .prev-image {
+            left: 10px;
+        }
+
+        .next-image {
+            right: 10px;
+        }
+
+        .room-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .room-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .room-type {
+            background-color: #f0f0f0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .room-rating {
+            color: #ffc107;
+        }
+
+        .room-rating .rating-value {
+            color: #333;
+            margin-left: 0.25rem;
+        }
+
+        .room-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 1.5rem;
+        }
+
+        .room-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #666;
+        }
+
+        .room-description, .room-features, .room-capacity, .nearby-attractions, .guest-reviews {
+            margin-bottom: 1.5rem;
+        }
+
+        .room-description h2, .room-features h2, .room-capacity h2, .nearby-attractions h2, .guest-reviews h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #333;
+        }
+
+        .amenities-list, .room-capacity ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .amenities-list li, .room-capacity ul li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .amenities-list i, .room-capacity ul i {
+            color: #4CAF50;
+        }
+        
+        .room-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .attraction-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .attraction-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .attraction-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .attraction-card:hover .attraction-image img {
+            transform: scale(1.05);
+        }
+        
+        .attraction-info {
+            padding: 1rem;
+        }
+        
+        .attraction-info h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .attraction-info p {
+            margin: 0.5rem 0;
+            color: #666;
+        }
+        
+        .review-summary {
+            display: flex;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .overall-rating {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .rating-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .rating-stars {
+            color: #ffc107;
+            margin: 0.5rem 0;
+        }
+        
+        .review-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Booking Form Styles */
+        .booking-container {
+            background-color: #f9f9f9;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .booking-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .booking-form .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .booking-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .booking-form input, .booking-form textarea, .booking-form select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .booking-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .booking-price-info {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+            margin-bottom: 1.5rem;
+        }
+
+        .booking-price-info p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-price-info .price-label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .booking-price-info .price-value {
+            font-weight: 700;
+        }
+
+        .booking-total {
+            display: none;
+            border-top: 1px solid #ddd;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .booking-form button {
+            grid-column: 1 / -1;
+            padding: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .booking-form button:hover {
+            background-color: #388e3c;
+        }
+
+        /* Message Styles */
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 350px;
+        }
+
+        .message {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .message.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+
+        .message-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: inherit;
+            opacity: 0.7;
+        }
+
+        .message-close:hover {
+            opacity: 1;
+        }
+
+        .message.fade-out {
+            animation: fadeOut 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .room-details-container {
+                padding: 1rem;
+            }
+
+            .room-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-container {
+                padding: 1rem;
+            }
+
+            .booking-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">Quick Stay</a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#rooms">Rooms</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li class="dashboard-link" style="display: none;"><a href="dashboard.html">Dashboard</a></li>
+                        <li class="admin-link" style="display: none;"><a href="admin.html">Admin</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <div class="auth-buttons">
+                        <a href="auth.html" class="btn btn-login">Login</a>
+                        <a href="auth.html?register=true" class="btn btn-register">Register</a>
+                    </div>
+                    <div class="profile-section" style="display: none;">
+                        <span class="username">Welcome, <span id="username-display">User</span></span>
+                        <button id="logout-btn" class="btn btn-logout">Logout</button>
+                    </div>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Room Details Section -->
+    <main>
+        <section class="room-details-section">
+            <div class="room-details-container">
+                <!-- Room details will be loaded dynamically -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading room details...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Form Section -->
+        <section class="booking-section">
+            <div class="booking-container">
+                <h2>Book This Room</h2>
+                <form id="booking-form" class="booking-form">
+                    <div class="form-group">
+                        <label for="booking-check-in">Check-in Date</label>
+                        <input type="date" id="booking-check-in" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-check-out">Check-out Date</label>
+                        <input type="date" id="booking-check-out" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-guests">Number of Guests</label>
+                        <input type="number" id="booking-guests" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-special-requests">Special Requests (Optional)</label>
+                        <textarea id="booking-special-requests" placeholder="Any special requests or preferences?"></textarea>
+                    </div>
+                    <div class="booking-price-info">
+                        <p>
+                            <span class="price-label">Price per night:</span>
+                            <span class="price-value" id="booking-price">$0</span>
+                        </p>
+                        <div class="booking-total">
+                            <p>
+                                <span class="price-label">Total for <span id="booking-nights">0</span> nights:</span>
+                                <span class="price-value" id="booking-total-price">$0</span>
+                            </p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-book">Book Now</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Quick Stay</h2>
+                    <p>Your home away from home</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#rooms">Rooms</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Hotel Street, City, Country</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                    <p><i class="fas fa-envelope"></i> info@quickstay.com</p>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Quick Stay. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="room-details.js"></script>
+</body>
+</html>

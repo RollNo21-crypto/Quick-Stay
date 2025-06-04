@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickStay - Authentication</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-home"></i> QuickStay
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#rooms">Rooms</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Authentication Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <!-- Login Form -->
+                <div class="auth-form" id="login-form">
+                    <h2>Login to Your Account</h2>
+                    <form id="login-form-element">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <p class="auth-switch">Don't have an account? <a href="#" id="show-register">Register</a></p>
+                </div>
+
+                <!-- Registration Form -->
+                <div class="auth-form" id="register-form" style="display: none;">
+                    <h2>Create an Account</h2>
+                    <form id="register-form-element">
+                        <div class="form-group">
+                            <label for="register-name">Full Name</label>
+                            <input type="text" id="register-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-phone">Phone</label>
+                            <input type="tel" id="register-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-address">Address</label>
+                            <textarea id="register-address" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-confirm-password">Confirm Password</label>
+                            <input type="password" id="register-confirm-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                    <p class="auth-switch">Already have an account? <a href="#" id="show-login">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-home"></i> QuickStay</h3>
+                    <p>Find your perfect getaway destination</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#rooms">Rooms</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Beach Road, Miami, FL</p>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> info@quickstay.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 QuickStay. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+</body>
+</html>
